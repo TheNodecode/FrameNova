@@ -30,7 +30,7 @@ if (py) {
   falta("Python 3", esWin ? "winget install Python.Python.3.12" : "brew install python", false);
 }
 
-console.log("\n  REEL STUDIO · comprobación del equipo\n");
+console.log("\n  FRAMENOVA · comprobación del equipo\n");
 for (const f of filas) console.log(`  ${f.ok ? "✓" : f.critico ? "✗" : "·"} ${f.n.padEnd(46)} ${f.v}${f.ayuda ? `\n      → ${f.ayuda}` : ""}`);
 const critico = filas.some((f) => !f.ok && f.critico);
 console.log(critico ? "\n  Faltan cosas imprescindibles (✗). Instálalas y vuelve a ejecutar.\n" : "\n  Todo lo imprescindible está. Lo marcado con · es opcional y amplía lo que se puede hacer.\n");

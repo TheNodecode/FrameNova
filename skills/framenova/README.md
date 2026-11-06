@@ -1,4 +1,6 @@
-# Reel Studio 🎬
+# FrameNova 🎬
+*(antes llamada «Reel Studio»)*
+
 **Un editor de vídeo profesional dentro de Claude.** Le das un vídeo en bruto y te devuelve un reel con cortes fluidos, color de cine, subtítulos modernos, motion graphics, música, efectos de sonido y cierre de marca, exportado en la máxima calidad para Instagram y TikTok, con su copy. Para cualquier sector: tecnología, IA, automatización, salud, lujo, creadores…
 
 > "Edita este vídeo" → 10 preguntas rápidas → MP4 listo para subir.
@@ -8,9 +10,9 @@
 # 1) Descarga/descomprime esta carpeta y, dentro de ella:
 node install.mjs
 # 2) Reinicia Claude Code y pídele:
-#    "Usa Reel Studio para editar este vídeo: C:/videos/mi-video.mp4"
+#    "Usa FrameNova para editar este vídeo: C:/videos/mi-video.mp4"
 ```
-Otras opciones: `node install.mjs --project` (solo el proyecto actual) · `node install.mjs --dir <carpeta de skills de tu agente>` (Cursor, Codex, opencode…) · o copia la carpeta a mano a `~/.claude/skills/reel-studio`.
+Otras opciones: `node install.mjs --project` (solo el proyecto actual) · `node install.mjs --dir <carpeta de skills de tu agente>` (Cursor, Codex, opencode…) · o copia la carpeta a mano a `~/.claude/skills/framenova`.
 
 Requisitos: **Node.js 20+** (imprescindible). Opcional: ffmpeg completo (LUTs 3D, loudnorm, denoise), Python 3 + numpy (cortes de silencio y envolvente), `onnxruntime`+`pillow` (gráficos detrás de la persona). `node scripts/doctor.mjs` te dice qué tienes y qué comando instalar.
 
@@ -43,8 +45,8 @@ examples/         ← specs de ejemplo (explicador de IA, ranking, reacción)
 Todo el vídeo se describe en **un archivo, `project/spec.json`** (el "panel de variables"): cambiar un tiempo, un texto o un efecto es editar una línea.
 
 ## Licencias y avisos (importante si lo compartes)
-- **Remotion** (el motor de render) es gratis para particulares, empresas de hasta 3 personas y sin ánimo de lucro; **las empresas más grandes necesitan una licencia de Remotion** → https://remotion.pro. Reel Studio solo lo usa, no lo incluye.
-- Código de Reel Studio y efectos de sonido (sintetizados) → MIT. Fuentes (Bricolage Grotesque, Inter Tight, Instrument Serif) → SIL OFL 1.1 (ver `NOTICE.md`).
+- **Remotion** (el motor de render) es gratis para particulares, empresas de hasta 3 personas y sin ánimo de lucro; **las empresas más grandes necesitan una licencia de Remotion** → https://remotion.pro. FrameNova solo lo usa, no lo incluye.
+- Código de FrameNova y efectos de sonido (sintetizados) → MIT. Fuentes (Bricolage Grotesque, Inter Tight, Instrument Serif) → SIL OFL 1.1 (ver `NOTICE.md`).
 - **No incluye música**: usa tu propia pista con licencia (o YouTube Audio Library, Pixabay, Uppbeat…). No incluye LUTs de fabricantes: usa las oficiales de Sony/Apple/Canon/Panasonic o genera las técnicas con `make-lut.py`.
 - El modelo de recorte de personas (RobustVideoMatting, GPL-3.0) **no se incluye**: se descarga aparte y es opcional.
 - Si reaccionas al vídeo de otra persona o usas su material, menciónala o pide permiso.

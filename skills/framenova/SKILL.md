@@ -1,9 +1,9 @@
 ---
-name: reel-studio
+name: framenova
 description: Motor de edición de vídeo cinematográfico con IA para reels, TikToks, Shorts y anuncios. Convierte un vídeo en bruto (iPhone, Sony S-Log3, Canon C-Log, Apple Log, webcam…) en un vídeo profesional: cortes fluidos de silencios, colorización/LOG→Rec.709, subtítulos modernos automáticos, motion graphics para cualquier sector (tecnología, IA, automatización, futurista, salud, lujo, creadores…), música con ducking, efectos de sonido, cierre con marca, exportación de máxima calidad para Instagram/TikTok y copy. Construido sobre Remotion. ÚSALA cuando el usuario diga "edita este vídeo", "hazme un reel", "añade subtítulos/motion graphics", "colorízalo", "quiero un vídeo estilo Apple/futurista", "prepara esto para Instagram/TikTok" o pase un vídeo para mejorar. Use when the user wants a raw video turned into a polished social video with subtitles, motion graphics, color grading, music and export.
 ---
 
-# Reel Studio · el editor de vídeo dentro de Claude
+# FrameNova · el editor de vídeo dentro de Claude
 
 **Promesa:** el usuario entrega un vídeo y dice, en pocas palabras, qué quiere. Tú le haces las preguntas justas, montas todo con Remotion y le devuelves un MP4 listo para subir (+ portada + copy), con calidad de estudio. Sin abrir un editor.
 

@@ -1,6 +1,6 @@
 # Colorización profesional (LOG, cámaras de cine, iPhone)
 
-**Idea:** grabar plano (LOG) conserva luces y sombras; la colorización lo convierte a Rec.709 con un *look*. Reel Studio hace esa conversión con las **curvas oficiales** de cada fabricante (S-Log3, V-Log, C-Log3, Apple Log) y aplica un look de cine encima.
+**Idea:** grabar plano (LOG) conserva luces y sombras; la colorización lo convierte a Rec.709 con un *look*. FrameNova hace esa conversión con las **curvas oficiales** de cada fabricante (S-Log3, V-Log, C-Log3, Apple Log) y aplica un look de cine encima.
 
 ## Qué cámara tengo → qué pongo
 | Origen | `--camera` | Cómo grabar (resumen) |

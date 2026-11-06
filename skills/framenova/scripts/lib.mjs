@@ -1,4 +1,4 @@
-// Utilidades compartidas por los scripts de Reel Studio (Node 20+).
+// Utilidades compartidas por los scripts de FrameNova (Node 20+).
 import { existsSync, readdirSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import path from "node:path";
