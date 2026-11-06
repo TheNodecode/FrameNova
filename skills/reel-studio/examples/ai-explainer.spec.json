@@ -1,0 +1,193 @@
+{
+  "_comment": "Explicador de IA / automatización (preset ai-futurista o neo-tech). Sin vídeo: motion graphics a pantalla completa; pon tu vídeo en video.src para mezclar.",
+  "format": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30
+  },
+  "durationSec": 24,
+  "video": null,
+  "matte": null,
+  "sharpen": 0.35,
+  "subtitles": {
+    "enabled": false,
+    "y": 1500
+  },
+  "layers": [
+    {
+      "type": "hook",
+      "text": "IA",
+      "from": 0,
+      "to": 1.4
+    },
+    {
+      "type": "giantWord",
+      "text": "AGENTES",
+      "from": 1.6,
+      "to": 3.4,
+      "y": 800,
+      "color": "accent2"
+    },
+    {
+      "type": "burst",
+      "at": 1.6
+    }
+  ],
+  "sheets": [
+    {
+      "from": 3.2,
+      "to": 6.4,
+      "transition": "sube",
+      "scene": {
+        "type": "title",
+        "kicker": "El problema",
+        "title": "Pierdes 10 horas a la semana",
+        "accentWord": "10 horas",
+        "lines": [
+          "Copiar datos",
+          "Responder lo mismo",
+          "Revisar informes"
+        ]
+      }
+    },
+    {
+      "from": 6.6,
+      "to": 10.2,
+      "transition": "iris",
+      "background": "grid",
+      "scene": {
+        "type": "flow",
+        "kicker": "La solución",
+        "title": "Un agente lo hace por ti",
+        "nodes": [
+          {
+            "label": "Llega un email",
+            "sub": "trigger",
+            "at": 0.6
+          },
+          {
+            "label": "La IA lo entiende",
+            "sub": "clasifica y resume",
+            "at": 1.3
+          },
+          {
+            "label": "Responde y archiva",
+            "sub": "sin tocar nada",
+            "at": 2.0
+          }
+        ]
+      }
+    },
+    {
+      "from": 10.4,
+      "to": 13.8,
+      "transition": "persiana",
+      "background": "aurora",
+      "scene": {
+        "type": "neural",
+        "kicker": "Cómo piensa",
+        "title": "Aprende de tus datos"
+      }
+    },
+    {
+      "from": 14.0,
+      "to": 17.6,
+      "transition": "izq",
+      "scene": {
+        "type": "code",
+        "kicker": "Y es poco código",
+        "title": "Así de simple",
+        "file": "agente.ts",
+        "lines": [
+          "const email = await leer(bandeja)",
+          "const plan = await ia.decide(email)",
+          "await responder(email, plan)",
+          "await archivar(email)"
+        ]
+      }
+    },
+    {
+      "from": 17.8,
+      "to": 21.0,
+      "transition": "dcha",
+      "scene": {
+        "type": "stat",
+        "kicker": "Resultado",
+        "value": 92,
+        "suffix": "%",
+        "label": "menos tiempo en tareas repetitivas",
+        "bars": [
+          0.3,
+          0.5,
+          0.7,
+          0.95
+        ]
+      }
+    }
+  ],
+  "punches": [
+    0,
+    3.2,
+    6.6,
+    10.4,
+    14,
+    17.8
+  ],
+  "sfx": [
+    {
+      "f": "impact",
+      "t": 0.05,
+      "v": 0.9
+    },
+    {
+      "f": "whoosh-up-big",
+      "t": 2.3,
+      "v": 0.7
+    },
+    {
+      "f": "swipe",
+      "t": 3.1,
+      "v": 0.5
+    },
+    {
+      "f": "whoosh-up-big",
+      "t": 6.5,
+      "v": 0.7
+    },
+    {
+      "f": "pop-1",
+      "t": 7.4,
+      "v": 0.5
+    },
+    {
+      "f": "pop-2",
+      "t": 8.1,
+      "v": 0.5
+    },
+    {
+      "f": "pop-3",
+      "t": 8.8,
+      "v": 0.5
+    },
+    {
+      "f": "scan",
+      "t": 10.5,
+      "v": 0.5
+    },
+    {
+      "f": "swipe",
+      "t": 14.0,
+      "v": 0.5
+    },
+    {
+      "f": "impact",
+      "t": 18.6,
+      "v": 0.7
+    }
+  ],
+  "closing": {
+    "at": 21.0,
+    "seconds": 3,
+    "tagline": "Automatiza con IA"
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "_comment": "Ranking de productos/herramientas con persona a cámara (preset bold-creator o ai-futurista). Necesita video.src, project/words.json y, idealmente, matte.",
+  "format": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30
+  },
+  "durationSec": 40,
+  "video": {
+    "src": "video/main.mp4",
+    "zoom": 1
+  },
+  "matte": {
+    "dir": "matte",
+    "max": 1199
+  },
+  "look": "cine",
+  "sharpen": 0.35,
+  "subtitles": {
+    "enabled": true,
+    "style": "pill",
+    "y": 1480,
+    "maxChars": 22,
+    "zones": [
+      {
+        "from": 28,
+        "to": 36,
+        "y": 640
+      }
+    ]
+  },
+  "layers": [
+    {
+      "type": "hook",
+      "text": "3",
+      "from": 0,
+      "to": 1.3
+    },
+    {
+      "type": "cards",
+      "from": 2.1,
+      "to": 36,
+      "items": [
+        {
+          "title": "Herramienta A",
+          "tag": "BUENA",
+          "tagColor": "ok",
+          "note": "Para empezar",
+          "at": 5.4
+        },
+        {
+          "title": "Herramienta B",
+          "tag": "EVÍTALA",
+          "tagColor": "bad",
+          "note": "Pierdes tiempo",
+          "at": 16.2
+        },
+        {
+          "title": "Herramienta C",
+          "tag": "LA MEJOR",
+          "tagColor": "warn",
+          "note": "La que uso yo",
+          "at": 24.0
+        }
+      ]
+    },
+    {
+      "type": "giantWord",
+      "text": "HERRAMIENTA A",
+      "from": 5.4,
+      "to": 9.6,
+      "y": 800,
+      "size": 150,
+      "color": "ok"
+    },
+    {
+      "type": "giantWord",
+      "text": "HERRAMIENTA C",
+      "from": 24,
+      "to": 28,
+      "y": 800,
+      "size": 150,
+      "dir": -1,
+      "color": "warn"
+    },
+    {
+      "type": "burst",
+      "at": 24
+    }
+  ],
+  "sheets": [
+    {
+      "from": 16.8,
+      "to": 22.4,
+      "transition": "iris",
+      "scene": {
+        "type": "list",
+        "kicker": "Por qué evitarla",
+        "title": "Tres problemas",
+        "items": [
+          {
+            "text": "Es lenta",
+            "at": 1.0
+          },
+          {
+            "text": "Cobra de más",
+            "at": 2.2
+          },
+          {
+            "text": "Sin soporte",
+            "at": 3.4
+          }
+        ]
+      }
+    }
+  ],
+  "punches": [
+    0,
+    2.1,
+    5.4,
+    16.2,
+    24
+  ],
+  "music": {
+    "src": "audio/music.wav",
+    "gain": 0.2,
+    "duck": 0.62,
+    "dropAt": 24
+  },
+  "sfx": [
+    {
+      "f": "impact",
+      "t": 0.05,
+      "v": 0.9
+    },
+    {
+      "f": "pop-1",
+      "t": 2.2,
+      "v": 0.5
+    },
+    {
+      "f": "pop-2",
+      "t": 2.4,
+      "v": 0.5
+    },
+    {
+      "f": "pop-3",
+      "t": 2.6,
+      "v": 0.5
+    },
+    {
+      "f": "impact-soft",
+      "t": 5.5,
+      "v": 0.6
+    },
+    {
+      "f": "whoosh-up-big",
+      "t": 16.7,
+      "v": 0.8
+    },
+    {
+      "f": "reverse-swell",
+      "t": 23.4,
+      "v": 0.6
+    },
+    {
+      "f": "impact",
+      "t": 24.0,
+      "v": 0.9
+    }
+  ],
+  "sfxGain": 0.8,
+  "closing": {
+    "at": 37.5,
+    "seconds": 2.5
+  }
+}

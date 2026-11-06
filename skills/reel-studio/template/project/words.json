@@ -1,0 +1,17 @@
+[
+  { "t0": 0.2, "t1": 0.6, "text": "Esto" },
+  { "t0": 0.6, "t1": 0.9, "text": "es" },
+  { "t0": 0.9, "t1": 1.5, "text": "Reel" },
+  { "t0": 1.5, "t1": 2.2, "text": "Studio." },
+  { "t0": 2.6, "t1": 3.1, "text": "Automatiza" },
+  { "t0": 3.1, "t1": 3.5, "text": "tu" },
+  { "t0": 3.5, "t1": 4.3, "text": "contenido" },
+  { "t0": 4.3, "t1": 4.8, "text": "con" },
+  { "t0": 4.8, "t1": 5.6, "text": "inteligencia." },
+  { "t0": 6.2, "t1": 6.9, "text": "Tres" },
+  { "t0": 6.9, "t1": 7.6, "text": "pasos:" },
+  { "t0": 7.6, "t1": 8.3, "text": "grabas," },
+  { "t0": 8.3, "t1": 9.0, "text": "hablas" },
+  { "t0": 9.0, "t1": 9.4, "text": "y" },
+  { "t0": 9.4, "t1": 10.2, "text": "publicas." }
+]

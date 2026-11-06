@@ -1,0 +1,122 @@
+{
+  "_comment": "Reacción a otro vídeo (pantalla partida). Fase 1: solo subtítulos en cápsula en la costura, sin zoom ni gráficos. Fase 2: motion graphics y la música cae en el corte. Cambia finReaccion (aquí 12.6) por tu corte.",
+  "format": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 24
+  },
+  "durationSec": 23.6,
+  "video": {
+    "src": "video/main.mp4",
+    "zoom": 1
+  },
+  "matte": {
+    "dir": "matte",
+    "max": 508
+  },
+  "look": "natural",
+  "sharpen": 0.35,
+  "subtitles": {
+    "enabled": true,
+    "style": "pill",
+    "y": 1360,
+    "maxChars": 22,
+    "zones": [
+      {
+        "from": 0,
+        "to": 12.6,
+        "y": 960,
+        "capsule": true
+      }
+    ]
+  },
+  "layers": [
+    {
+      "type": "burst",
+      "at": 12.6
+    },
+    {
+      "type": "giantWord",
+      "text": "RASCADOR",
+      "from": 12.62,
+      "to": 14.4,
+      "y": 900,
+      "size": 230,
+      "dir": -1,
+      "color": "accent2"
+    },
+    {
+      "type": "cards",
+      "from": 12.6,
+      "to": 14.7,
+      "items": [
+        {
+          "title": "Opción 1",
+          "tag": "HAY MUCHOS",
+          "tagColor": "accent2",
+          "at": 12.7
+        },
+        {
+          "title": "Opción 2",
+          "tag": "TAMBIÉN VALE",
+          "tagColor": "ok",
+          "at": 13.75
+        }
+      ]
+    }
+  ],
+  "sheets": [
+    {
+      "from": 14.7,
+      "to": 19.0,
+      "transition": "sube",
+      "scene": {
+        "type": "list",
+        "kicker": "Cada noche",
+        "title": "Rutina",
+        "items": [
+          {
+            "text": "Paso uno",
+            "at": 1.0
+          },
+          {
+            "text": "Paso dos",
+            "at": 2.2
+          }
+        ]
+      }
+    }
+  ],
+  "punches": [
+    12.6,
+    13.79
+  ],
+  "music": {
+    "src": "audio/music.wav",
+    "gain": 0.13,
+    "duck": 0.62,
+    "dropAt": 12.6
+  },
+  "sfx": [
+    {
+      "f": "reverse-swell",
+      "t": 12.0,
+      "v": 0.55
+    },
+    {
+      "f": "impact",
+      "t": 12.62,
+      "v": 0.9
+    },
+    {
+      "f": "whoosh-up-big",
+      "t": 12.6,
+      "v": 0.6
+    }
+  ],
+  "sfxGain": 0.15,
+  "closing": {
+    "at": 21.2,
+    "seconds": 2.4
+  }
+}

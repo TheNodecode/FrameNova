@@ -1,0 +1,37 @@
+{
+  "format": { "width": 1080, "height": 1920, "fps": 30 },
+  "durationSec": 14,
+  "video": null,
+  "matte": null,
+  "sharpen": 0.35,
+  "subtitles": { "enabled": true, "y": 1500, "maxChars": 22 },
+  "layers": [
+    { "type": "hook", "text": "3", "from": 0, "to": 1.4 },
+    { "type": "giantWord", "text": "AUTOMATIZA", "from": 2.6, "to": 5.6, "y": 760, "color": "accent2" },
+    { "type": "burst", "at": 2.6 },
+    { "type": "cards", "from": 6.1, "to": 11.2, "items": [
+      { "title": "Grabas", "tag": "PASO 1", "tagColor": "accent", "note": "Móvil o cámara", "at": 7.0 },
+      { "title": "Hablas", "tag": "PASO 2", "tagColor": "accent2", "note": "Transcripción automática", "at": 8.3 },
+      { "title": "Publicas", "tag": "PASO 3", "tagColor": "ok", "note": "Listo para redes", "at": 9.5 }
+    ] }
+  ],
+  "sheets": [
+    { "from": 11.4, "to": 13.3, "transition": "iris", "scene": { "type": "flow", "kicker": "Tu flujo", "title": "De idea a reel", "nodes": [
+      { "label": "Grabas", "sub": "cualquier cámara", "at": 0.5 },
+      { "label": "Claude edita", "sub": "cortes, color, subtítulos", "at": 1.0 },
+      { "label": "Publicas", "sub": "máxima calidad", "at": 1.5 }
+    ] } }
+  ],
+  "punches": [0, 2.6, 6.2],
+  "sfx": [
+    { "f": "impact", "t": 0.05, "v": 0.9 },
+    { "f": "whoosh-up-big", "t": 2.45, "v": 0.7 },
+    { "f": "impact", "t": 2.62, "v": 0.9 },
+    { "f": "swipe", "t": 6.1, "v": 0.5 },
+    { "f": "pop-1", "t": 7.0, "v": 0.6 },
+    { "f": "pop-2", "t": 8.3, "v": 0.6 },
+    { "f": "pop-3", "t": 9.5, "v": 0.6 },
+    { "f": "whoosh-up-big", "t": 11.2, "v": 0.8 }
+  ],
+  "closing": { "at": 13.3, "seconds": 0.7 }
+}
