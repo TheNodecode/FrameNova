@@ -17,9 +17,9 @@ const segundos = String(arg("at", "0.5")).split(",").map(Number);
 const escala = Number(arg("scale", 0.4));
 const serveUrl = await bundle({ entryPoint: path.resolve("src/index.ts") });
 const chromiumOptions = { gl: "angle" };
-const comp = await selectComposition({ serveUrl, id: "Reel", chromiumOptions });
+const comp = await selectComposition({ serveUrl, id: "Reel", chromiumOptions, timeoutInMilliseconds: 180000 });
 for (const s of segundos) {
   const frame = Math.min(comp.durationInFrames - 1, Math.round(s * comp.fps));
-  await renderStill({ composition: comp, serveUrl, frame, scale: escala, chromiumOptions, output: path.join(out, `s${String(s).replace(".", "_")}.png`) });
+  await renderStill({ composition: comp, serveUrl, frame, scale: escala, chromiumOptions, timeoutInMilliseconds: 180000, output: path.join(out, `s${String(s).replace(".", "_")}.png`) });
   console.log("ok", s);
 }

@@ -32,6 +32,11 @@ export const LookDefs: React.FC = () => {
         {t("0 0.17 0.42 0.74 0.97", "0 0.17 0.42 0.74 0.97", "0.01 0.19 0.43 0.73 0.95")}
         <feColorMatrix type="saturate" values="0.82" />
       </filter>
+      {/* pro: retoque suave sobre material YA colorizado: algo más de contraste, piel cálida, sombras profundas */}
+      <filter id="look-pro" colorInterpolationFilters="sRGB">
+        {t("0 0.22 0.52 0.83 1", "0 0.22 0.5 0.81 0.99", "0.02 0.22 0.47 0.77 0.96")}
+        <feColorMatrix type="saturate" values="1.12" />
+      </filter>
       <filter id="look-punch" colorInterpolationFilters="sRGB">
         {t("0 0.2 0.52 0.86 1", "0 0.2 0.52 0.86 1", "0 0.2 0.52 0.86 1")}
         <feColorMatrix type="saturate" values="1.25" />

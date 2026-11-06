@@ -7,9 +7,9 @@ import brand from "../brand.json";
  * Se elige con `brand.json → preset` y se afina con `accent`, `accent2` y `overrides`. Para crear un estilo nuevo:
  * añade un preset aquí (copia el más parecido) y ponlo en brand.json.
  */
-export type Look = "natural" | "clean" | "cine" | "moody" | "punch";
+export type Look = "natural" | "clean" | "cine" | "moody" | "punch" | "pro";
 export type FondoTipo = "studio" | "aurora" | "grid" | "mesh";
-export type EstiloSub = "pill" | "karaoke" | "impact" | "minimal";
+export type EstiloSub = "pill" | "karaoke" | "impact" | "minimal" | "lux";
 
 export type Tokens = {
   dark: boolean;
@@ -137,6 +137,40 @@ export const PRESETS: Record<string, Tokens> = {
     fondo: "mesh",
     subs: "impact",
     look: "punch",
+  },
+  /** Negro + oro (marca premium / SaaS de lujo): rejilla dorada, fogonazos oro, subtítulos "lux" en serif cursiva. */
+  "nova-gold": {
+    ...base,
+    dark: true,
+    bg: "#0B0A08",
+    bg2: "#1A160E",
+    ink: "#F6F1E6",
+    inkSoft: "#A79F8E",
+    accent: "#E0AE45",
+    accent2: "#F7DE9A",
+    glass: "rgba(26,22,14,0.78)",
+    glassBorder: "rgba(247,222,154,0.28)",
+    shadow: "0 30px 80px rgba(0,0,0,0.7)",
+    fondo: "grid",
+    subs: "lux",
+    look: "pro",
+  },
+  /** "Claude edita": grafito + naranja, pantalla inclinada sobre rejilla, palabras condensadas (reels de IA/edición). */
+  "claude-tech": {
+    ...base,
+    dark: true,
+    bg: "#090B10",
+    bg2: "#141821",
+    ink: "#F2F4F8",
+    inkSoft: "#8B93A7",
+    accent: "#FF6B2C",
+    accent2: "#FFB27A",
+    glass: "rgba(22,26,36,0.78)",
+    glassBorder: "rgba(255,255,255,0.18)",
+    shadow: "0 26px 70px rgba(0,0,0,0.6)",
+    fondo: "grid",
+    subs: "karaoke",
+    look: "pro",
   },
   /** Cálido y humano (clínicas, bienestar, educación): crema + rosa, cristal claro. */
   "warm-human": {

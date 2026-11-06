@@ -132,7 +132,64 @@ export const Subtitulos: React.FC<{ enHoja?: number }> = ({ enHoja = 0 }) => {
     );
   }
 
-  const tam = capsula ? 56 : 64;
+  if (estilo === "lux") {
+    // "lux": frase en Inter Tight (sin mayúsculas forzadas) + palabra clave en serif cursiva con degradado del acento.
+    // Cada palabra aparece cuando suena, saliendo de un desenfoque; nada de pastillas.
+    const base = spec.subtitles.size ?? 68;
+    const filasL: typeof l.palabras[] = [];
+    let f: typeof l.palabras = [];
+    l.palabras.forEach((p) => {
+      if (f.length && [...f, p].map((x) => x.texto).join(" ").length > 20) {
+        filasL.push(f);
+        f = [];
+      }
+      f.push(p);
+    });
+    filasL.push(f);
+    return (
+      <div style={{ position: "absolute", left: 60, right: 60, top: y, transform: `translateY(-50%) translateY(${-sale * 12}px)`, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, opacity: 1 - sale, pointerEvents: "none" }}>
+        {filasL.map((fila, r) => (
+          <div key={r} style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: 16, whiteSpace: "nowrap" }}>
+            {fila.map((p, k) => {
+              if (t < p.t0 - 0.06) {
+                return null;
+              }
+              const e = spring({ frame: Math.round((t - (p.t0 - 0.06)) * F), fps: F, config: { damping: 16, stiffness: 200, mass: 0.6 } });
+              const ent = Math.min(1, e);
+              const clave = p.enfasis;
+              const comun: React.CSSProperties = { display: "inline-block", opacity: ent, filter: `blur(${(1 - ent) * 9}px)`, transform: `translateY(${(1 - e) * 18}px)` };
+              return clave ? (
+                <span
+                  key={k}
+                  style={{
+                    ...comun,
+                    fontFamily: theme.fontSerif,
+                    fontStyle: "italic",
+                    fontSize: base * 1.32,
+                    lineHeight: 1,
+                    padding: "0 6px",
+                    backgroundImage: `linear-gradient(180deg, ${alfa(theme.accent2, 1)} 10%, ${theme.accent} 90%)`,
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    color: "transparent",
+                    filter: `blur(${(1 - ent) * 9}px) drop-shadow(0 0 18px ${alfa(theme.accent, 0.55)}) drop-shadow(0 4px 10px rgba(0,0,0,0.7))`,
+                  }}
+                >
+                  {p.texto.replace(/[.,;:]$/, "")}
+                </span>
+              ) : (
+                <span key={k} style={{ ...comun, fontFamily: theme.fontBody, fontWeight: 700, fontSize: base, lineHeight: 1.05, letterSpacing: "-0.02em", color: "#FFFFFF", textShadow: "0 2px 0 rgba(0,0,0,0.35), 0 0 22px rgba(0,0,0,0.6), 0 10px 28px rgba(0,0,0,0.55)" }}>
+                  {p.texto.replace(/[.,;:]$/, "")}
+                </span>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  const tam = capsula ? 56 : (spec.subtitles.size ?? 64);
   const maxLinea = capsula ? 28 : 20;
   const filas: typeof l.palabras[] = [];
   {

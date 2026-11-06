@@ -15,7 +15,15 @@ export type Layer =
   | { type: "burst"; at: number }
   | { type: "chip"; text: string; from: number; to: number; x?: number; y: number; color?: ColorRef }
   | { type: "stat"; from: number; to: number; y?: number; value: number; suffix?: string; prefix?: string; label: string; decimals?: number }
-  | { type: "cards"; from: number; to: number; y?: number; items: CardItem[] };
+  | { type: "cards"; from: number; to: number; y?: number; items: CardItem[] }
+  // estilo "pantalla tech" (kit/Pantalla.tsx): monitor y slam van ENCIMA de la persona; cromo DETRÁS
+  | { type: "monitor"; from: number; to: number; kicker?: string; title: string; ui: UiMonitor; turn?: 1 | -1 }
+  | { type: "slam"; from: number; to: number; text: string }
+  | { type: "chrome"; from: number; to: number; text: string; y?: number; size?: number }
+  | { type: "headline"; from: number; to: number; lines: string[]; y?: number }
+  | { type: "clips"; from: number; to: number; items: ItemTarjeta[]; y?: number; dim?: number };
+
+import type { ItemTarjeta, UiMonitor } from "./kit/Pantalla";
 
 export type CardItem = { n?: string; title: string; tag?: string; tagColor?: ColorRef; note?: string; image?: string; at: number };
 
@@ -44,6 +52,8 @@ export type Spec = {
     style?: EstiloSub;
     y: number;
     maxChars?: number;
+    /** Tamaño de letra de los subtítulos (px a 1080 de ancho). Por defecto 64. */
+    size?: number;
     emphasis?: string[];
     lines?: [string, number, number][];
     zones?: { from: number; to: number; y: number; capsule?: boolean }[];

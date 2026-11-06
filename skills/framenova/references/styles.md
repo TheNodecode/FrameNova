@@ -9,6 +9,8 @@ Un estilo = un bloque de **tokens** en `template/src/theme.ts` (colores, tipogra
 | `neo-tech` | grafito + rejilla en perspectiva + azul eléctrico y lima | grid | karaoke | punch | dev tools, ciberseguridad, no-code/automatización (n8n, Make, Zapier), datos |
 | `luxury` | negro + oro, serif grande, contraste alto | mesh | minimal | moody | inmobiliaria de lujo, joyería, moda, hostelería, coaches premium |
 | `bold-creator` | amarillo-negro, palabras gigantes de una en una | mesh | impact | punch | creadores, e-commerce, fitness, retos, contenido viral |
+| `claude-tech` | grafito + naranja, pantalla inclinada sobre rejilla, palabras condensadas | grid | karaoke | pro | reels de IA/edición/automatización ("edito con Claude") |
+| `nova-gold` | negro + oro, fogonazos dorados, subtítulos serif cursiva | grid | lux | pro | SaaS premium, marca personal de lujo, agencias |
 | `warm-human` | crema + rosa, cristal claro, cercano | studio | pill | natural | salud, clínicas, bienestar, educación, servicios locales |
 
 ## Las 10 reglas que dan el aspecto "caro/Apple"

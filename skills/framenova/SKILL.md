@@ -28,7 +28,8 @@ No empieces a montar sin esto. Haz las preguntas juntas, numeradas, con una resp
 2. **Dónde se publica y formato:** Reels/TikTok/Shorts vertical 9:16 *(defecto)* · cuadrado · 4:5 · horizontal.
 3. **Marca:** nombre, @usuario, logo (PNG transparente: ruta), colores (hex) o "invéntalos", tipografía si tiene.
 4. **Sector y estilo:** elige uno (mira `references/styles.md`) o **pásame referencias** (capturas, vídeos, enlaces) y las traduzco a tu estilo:
-   `apple-clean` · `ai-futurista` · `neo-tech` · `luxury` · `bold-creator` · `warm-human`.
+   `apple-clean` · `ai-futurista` · `neo-tech` · `luxury` · `bold-creator` · `warm-human` · `claude-tech` · `nova-gold`.
+   Para reels tipo "edito con IA" (pantalla inclinada, fogonazos, palabras cromadas, tarjetas con clips) lee `references/viral-tech-style.md`.
 5. **Cámara / formato de origen:** iPhone normal · iPhone Apple Log · Sony S-Log3 (FX3/A7S III/FX30…) · Canon C-Log3 · Panasonic V-Log · Rec.709 ya corregido · no sé. *(define la colorización: `references/color-grading.md`)*
 6. **Subtítulos:** estilo (`pill` · `karaoke` · `impact` · `minimal`), idioma, ¿corto los silencios (jump cuts)?
 7. **Música:** ¿tienes pista con licencia? ¿ambiente (épica, tech, chill, lujo)? Si no, el vídeo va sin música y te digo dónde conseguirla libre de derechos.
@@ -56,6 +57,8 @@ node scripts/prepare.mjs --lang es [--cut]
 - `prepare` transcribe con Whisper local (word-level), calcula los cortes de silencio, genera la envolvente de voz y deja `project/spec.json` listo (formato, duración, vídeo). Con `--cut` aplica los jump cuts.
 - **Color de cámara LOG:** mira `references/color-grading.md` ya. Camino sin ffmpeg completo: `python scripts/make-lut.py --camera slog3 --look cine --grade project/spec.json`.
 - **Persona recortada** (para gráficos DETRÁS de ella, el efecto "caro"): `python scripts/matte.py` (necesita onnxruntime + el modelo RVM; ver cabecera). Opcional pero muy recomendable en planos medios.
+- **Grabación larga con repeticiones** (el usuario "lo grabó todo de largo"): `python scripts/select-takes.py --video … --cuts work/cuts.json` (lee su cabecera: transcribir POR TOMAS, cortar en pausas, verificar el extracto).
+- **Música con licencia:** `python scripts/find-music.py --q "hip hop,cinematic"` y `--get <id> --drop-at <segundo>`. **DaVinci Resolve (gratis):** `python scripts/davinci-export.py --original … --tc 01:00:00:00` (EDL + SRT + LUT + script Lua).
 - **Si el vídeo es una reacción o pantalla partida:** detecta el corte entre fases (diferencia entre fotogramas) y usa `subtitles.zones` con `capsule:true` en la costura. Ver `examples/reaction-split.spec.json`.
 
 ## 4 · STORYBOARD antes de tocar el spec (puerta de control)
