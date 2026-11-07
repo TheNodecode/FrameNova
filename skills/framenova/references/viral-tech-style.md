@@ -22,6 +22,18 @@ Estilos listos: `claude-tech` (grafito + naranja) y `nova-gold` (negro + oro). L
 - La caída de la música coincide con el primer `slam` (≈ segundo 8–10).
 - Sonidos: `reverse-swell` + `whoosh-up` en el segundo 0; un whoosh/swipe distinto por tarjeta; `riser` 1,2 s antes de cada slam y `impact` en el slam; `pop` en chips; `sub-drop` en palabras cromadas.
 
+## Errores que el usuario NO perdona (aprendido en el reel real)
+- **Cortar la última frase.** El vídeo termina en la frase de cierre completa ("…así que comenta SKILL y te la envío"), nunca a mitad del CTA. Transcribe 30 s más allá del último corte para ver qué viene.
+- **Pausas y repeticiones.** Aprieta cada corte (`scripts/tighten-cuts.py`): voz con ~0,05 s antes y ~0,12 s después, pausas internas > 0,3 s fuera. Revisa también la repetición ENTRE cortes (un corte acaba en "Remotion" y el siguiente empieza "Remotion es…").
+- **Rótulo fijo todo el vídeo.** El `headline` solo mientras se dice la frase del gancho (≈ 0–2 s) y, si acaso, en la frase final del CTA.
+- **Clips de clientes sin gráficos.** En "vídeos como estos", enseña los momentos con motion graphics (3D, contadores, pantallas), no planos de la persona hablando. Haz antes una hoja de fotogramas de cada vídeo y elige.
+
+## Acabado de cine (spec)
+- `framing: [{at, zoom}]`: en cada corte salta entre plano general (1) y primer plano (1,12). Disimula los saltos de los cortes apretados.
+- `cine: {grain, vignette, bars, openSec, closeSec}` (kit/Cine.tsx): viñeta, grano ligero, bandas negras que se abren al empezar y se cierran al final con fundido a negro. Así el vídeo "cierra".
+- Subtítulos que cambian de altura (`subtitles.zones`, se elige la zona por el inicio de cada línea): bajo la boca (y≈1090), abajo (y≈1545) y arriba (y≈300, solo sin rótulo). Con monitor o tarjetas en pantalla, siempre abajo (y≈1580). Nunca encima de la cara.
+- Música del usuario: alinea su caída con el primer `slam` y, si es más corta que el vídeo, haz bucles de 4 u 8 compases con fundido de 0,12 s (mide el tempo por autocorrelación de la envolvente).
+
 ## Grabaciones largas con repeticiones
 `scripts/select-takes.py` (ver cabecera): transcribe por tomas (no el audio entero), elige la mejor toma de cada idea, ajusta bordes a las pausas y monta `selects.mp4` exacto al fotograma. Después transcribe el extracto POR TRAMO y estira las palabras al inicio/fin real de la voz de cada tramo (Whisper adelanta ~0,5 s).
 

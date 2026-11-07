@@ -57,7 +57,7 @@ node scripts/prepare.mjs --lang es [--cut]
 - `prepare` transcribe con Whisper local (word-level), calcula los cortes de silencio, genera la envolvente de voz y deja `project/spec.json` listo (formato, duración, vídeo). Con `--cut` aplica los jump cuts.
 - **Color de cámara LOG:** mira `references/color-grading.md` ya. Camino sin ffmpeg completo: `python scripts/make-lut.py --camera slog3 --look cine --grade project/spec.json`.
 - **Persona recortada** (para gráficos DETRÁS de ella, el efecto "caro"): `python scripts/matte.py` (necesita onnxruntime + el modelo RVM; ver cabecera). Opcional pero muy recomendable en planos medios.
-- **Grabación larga con repeticiones** (el usuario "lo grabó todo de largo"): `python scripts/select-takes.py --video … --cuts work/cuts.json` (lee su cabecera: transcribir POR TOMAS, cortar en pausas, verificar el extracto).
+- **Grabación larga con repeticiones** (el usuario "lo grabó todo de largo"): `python scripts/select-takes.py --video … --cuts work/cuts.json` (lee su cabecera: transcribir POR TOMAS, cortar en pausas, verificar el extracto). Después `python scripts/tighten-cuts.py` para quitar pausas internas, y NUNCA cortes la frase final del CTA. Acabado de cine: `framing` + `cine` en el spec (ver references/viral-tech-style.md).
 - **Música con licencia:** `python scripts/find-music.py --q "hip hop,cinematic"` y `--get <id> --drop-at <segundo>`. **DaVinci Resolve (gratis):** `python scripts/davinci-export.py --original … --tc 01:00:00:00` (EDL + SRT + LUT + script Lua).
 - **Si el vídeo es una reacción o pantalla partida:** detecta el corte entre fases (diferencia entre fotogramas) y usa `subtitles.zones` con `capsule:true` en la costura. Ver `examples/reaction-split.spec.json`.
 

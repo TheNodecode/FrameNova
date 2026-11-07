@@ -88,7 +88,7 @@ export const Subtitulos: React.FC<{ enHoja?: number }> = ({ enHoja = 0 }) => {
   const fin = Math.min(lineas[i + 1] ? lineas[i + 1].t0 - 0.02 : Infinity, l.t1 + 0.35);
   const sale = prog(t, fin - 0.1, fin);
   const estilo: EstiloSub = spec.subtitles.style ?? theme.subs;
-  const zona = spec.subtitles.zones?.find((z) => t >= z.from && t < z.to);
+  const zona = spec.subtitles.zones?.find((z) => l.t0 >= z.from && l.t0 < z.to);
   const capsula = !!zona?.capsule;
   const y = zona?.y ?? spec.subtitles.y;
   // sin vídeo debajo y con tema claro, el texto va en tinta (como sobre una hoja)

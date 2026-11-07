@@ -10,6 +10,7 @@ import { Cromo, Monitor, Slam, Tarjetas, Titular } from "./kit/Pantalla";
 import { ParcheLimpieza } from "./kit/Parche";
 import { progresoHoja, SheetView } from "./kit/Sheet";
 import { Subtitulos } from "./kit/Subtitles";
+import { Cine } from "./kit/Cine";
 import { spec, type Layer } from "./spec";
 import { cargarFuentes, theme } from "./theme";
 
@@ -78,7 +79,9 @@ export const Reel: React.FC = () => {
   const golpe = ultimo !== undefined ? 0.045 * (1 - prog(t, ultimo, ultimo + 0.45)) : 0;
   const segActual = 0;
   const lento = 0.035 * prog(t, segActual, spec.durationSec, lenta);
-  const escala = (1 + z * (lento + golpe)) * (1 - 0.07 * empuja) * (z > 0 ? 1.025 : 1);
+  // encuadre por plano (corte seco plano general / primer plano): disimula los saltos de los cortes, como en cine
+  const plano = [...(spec.framing ?? [])].reverse().find((p) => t >= p.at);
+  const escala = (1 + z * (lento + golpe)) * (1 - 0.07 * empuja) * (z > 0 ? 1.025 : 1) * (plano?.zoom ?? 1);
   const manoX = z > 0 ? Math.sin(t * 0.9) * 4 + Math.sin(t * 2.3) * 1.5 : 0;
   const manoY = z > 0 ? Math.cos(t * 0.7) * 4 + Math.sin(t * 1.9) * 1.2 : 0;
   const mov: React.CSSProperties = {
@@ -124,6 +127,7 @@ export const Reel: React.FC = () => {
 
       {/* durante un fogonazo, la palabra gigante hace de subtítulo */}
       {!spec.layers.some((s) => s.type === "slam" && t >= s.from && t <= s.to) && <Subtitulos enHoja={empuja} />}
+      {spec.cine && <Cine t={t} />}
       <Musica />
       <Efectos />
       <Cierre />

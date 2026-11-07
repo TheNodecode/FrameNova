@@ -61,6 +61,10 @@ export type Spec = {
   layers: Layer[];
   sheets: Sheet[];
   punches: number[];
+  /** encuadre por plano: zoom fijo desde `at` (1 = plano general, 1.12 = primer plano) */
+  framing?: { at: number; zoom: number }[];
+  /** acabado de cine: viñeta, grano, bandas que abren y cierran */
+  cine?: { grain?: number; vignette?: number; bars?: number; openSec?: number; closeSec?: number };
   music?: { src: string; startAt?: number; gain: number; duck?: number; fadeIn?: number; fadeOut?: number; dropAt?: number | null };
   sfx: { f: string; t: number; v: number }[];
   sfxGain?: number;
