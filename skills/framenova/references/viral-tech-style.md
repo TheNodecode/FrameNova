@@ -28,10 +28,16 @@ Estilos listos: `claude-tech` (grafito + naranja) y `nova-gold` (negro + oro). L
 - **Rótulo fijo todo el vídeo.** El `headline` solo mientras se dice la frase del gancho (≈ 0–2 s) y, si acaso, en la frase final del CTA.
 - **Clips de clientes sin gráficos.** En "vídeos como estos", enseña los momentos con motion graphics (3D, contadores, pantallas), no planos de la persona hablando. Haz antes una hoja de fotogramas de cada vídeo y elige.
 
+- **Huecos entre frases.** Tras apretar, mide los silencios del extracto entero (voz < 12 % del p90 durante ≥ 0,18 s) y recorta cada borde al final real de la voz con una "barra de energía" a 20 ms. Objetivo: ningún silencio > 0,2 s. Whisper NO ve las repeticiones ("le vamos a decir… le vamos a decir que…", "así que con… así que comenta"): búscalas como dos bloques de voz separados por una pausa donde Whisper solo pone una frase, y quédate con el segundo.
+- **Música inaudible en las pausas.** Con voz a −10 dB, la música debe quedar a −18/−20 dB (gain ≈ 0,55). Si en un hueco la mezcla baja de −24 dB, se nota "vacío".
+- **Partes planas.** Nunca más de ~2 s de persona sola sin nada: palabra cromada, logo, chip, contador (`stat`) o monitor. Gancho: palabra cromada detrás desde el fotograma 0 + golpe de sonido + rótulo.
+- **Logo de la herramienta.** Cuando se nombra (Claude, etc.), capa `logo` (`kit/Pantalla.tsx`): con fondo a pantalla completa en la primera mención fuerte, y flotando sobre la cabeza (`bg:false`, y≈420) en las demás. Solo el logo que dé el usuario, sin fondo.
+- **Subtítulos.** Grandes (`size` 80), la línea entera visible desde que entra (centrada y estable) y la palabra que suena en oro. Alturas seguras para TikTok/Reels: y≈400 arriba y y≈1330 bajo la barbilla. Nada por debajo de ~1480 (lo tapan la descripción y los botones).
+
 ## Acabado de cine (spec)
 - `framing: [{at, zoom}]`: en cada corte salta entre plano general (1) y primer plano (1,12). Disimula los saltos de los cortes apretados.
 - `cine: {grain, vignette, bars, openSec, closeSec}` (kit/Cine.tsx): viñeta, grano ligero, bandas negras que se abren al empezar y se cierran al final con fundido a negro. Así el vídeo "cierra".
-- Subtítulos que cambian de altura (`subtitles.zones`, se elige la zona por el inicio de cada línea): bajo la boca (y≈1090), abajo (y≈1545) y arriba (y≈300, solo sin rótulo). Con monitor o tarjetas en pantalla, siempre abajo (y≈1580). Nunca encima de la cara.
+- Subtítulos que cambian de altura (`subtitles.zones`, se elige la zona por el inicio de cada línea): bajo la barbilla (y≈1330) y arriba (y≈400, solo sin rótulo). Con monitor o tarjetas en pantalla, y≈1450. Nunca encima de la cara.
 - Música del usuario: alinea su caída con el primer `slam` y, si es más corta que el vídeo, haz bucles de 4 u 8 compases con fundido de 0,12 s (mide el tempo por autocorrelación de la envolvente).
 
 ## Grabaciones largas con repeticiones

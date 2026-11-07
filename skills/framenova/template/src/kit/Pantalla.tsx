@@ -387,3 +387,43 @@ export const Titular: React.FC<{ t: number; lineas: string[]; y?: number }> = ({
     </div>
   );
 };
+
+/**
+ * LOGO (spec: {type:"logo", src, from, to, text?, bg?, y?, size?}). Con `bg` (por defecto) es un fogonazo oscuro con
+ * halo del acento, el logo entra con resorte y giro y el nombre debajo; sin `bg` el logo aparece flotando en `y`
+ * (p. ej. cuando se nombra la herramienta de pasada). Usa SOLO el logo que te dé el usuario.
+ */
+export const Logo: React.FC<{ t: number; dur: number; src: string; texto?: string; bg?: boolean; y?: number; size?: number }> = ({ t, dur, src, texto, bg = true, y = 860, size }) => {
+  const e = resorte(t, 0.02, 170, 11);
+  const sale = prog(t, dur - 0.16, dur);
+  const ancho = size ?? (bg ? 560 : 300);
+  const flota = Math.sin(t * 3.2) * 8;
+  const logo = (
+    <img
+      src={staticFile(src)}
+      style={{
+        width: ancho,
+        imageRendering: "pixelated",
+        transform: `translateY(${flota}px) scale(${0.4 + 0.6 * e}) rotate(${(1 - Math.min(1, e)) * -14}deg)`,
+        filter: `drop-shadow(0 0 ${bg ? 60 : 30}px ${alfa(theme.accent, 0.55)}) drop-shadow(0 18px 30px rgba(0,0,0,0.6))`,
+      }}
+    />
+  );
+  if (!bg) {
+    return (
+      <div style={{ position: "absolute", left: 0, right: 0, top: y, display: "flex", justifyContent: "center", transform: "translateY(-50%)", opacity: Math.min(1, e * 1.5) * (1 - sale) }}>{logo}</div>
+    );
+  }
+  const abre = prog(t, 0, 0.14);
+  return (
+    <AbsoluteFill style={{ background: theme.bg, clipPath: `circle(${abre * 120}% at 50% 48%)`, opacity: 1 - sale }}>
+      <AbsoluteFill style={{ background: `radial-gradient(55% 38% at 50% 46%, ${alfa(theme.accent, 0.45)}, transparent 70%)` }} />
+      <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", flexDirection: "column", gap: 70 }}>
+        {logo}
+        {texto && (
+          <div style={{ ...COND, fontSize: 210, lineHeight: 0.85, color: "#FFFFFF", letterSpacing: "0.02em", textTransform: "uppercase", opacity: prog(t, 0.08, 0.3), transform: `translateY(${(1 - prog(t, 0.08, 0.35)) * 40}px)`, textShadow: `0 0 40px ${alfa(theme.accent, 0.5)}` }}>{texto}</div>
+        )}
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};

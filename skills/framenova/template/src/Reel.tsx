@@ -6,7 +6,7 @@ import { CardBoard } from "./kit/Cards";
 import { Cierre } from "./kit/Closing";
 import { Burst, Chip, GiantWord, Hook, StatLayer } from "./kit/Fx";
 import { Cutout, filtroVideo, LookDefs, SourceVideo } from "./kit/Media";
-import { Cromo, Monitor, Slam, Tarjetas, Titular } from "./kit/Pantalla";
+import { Cromo, Logo, Monitor, Slam, Tarjetas, Titular } from "./kit/Pantalla";
 import { ParcheLimpieza } from "./kit/Parche";
 import { progresoHoja, SheetView } from "./kit/Sheet";
 import { Subtitulos } from "./kit/Subtitles";
@@ -35,7 +35,7 @@ const Capa: React.FC<{ l: Layer }> = ({ l }) => {
   }
 };
 
-const ENCIMA = new Set(["monitor", "slam", "headline", "clips"]);
+const ENCIMA = new Set(["monitor", "slam", "headline", "clips", "logo"]);
 
 /** Capas del estilo "pantalla tech": visibles solo entre `from` y `to`. */
 const CapaPantalla: React.FC<{ l: Layer }> = ({ l }) => {
@@ -50,13 +50,15 @@ const CapaPantalla: React.FC<{ l: Layer }> = ({ l }) => {
       return <Monitor t={rel} dur={dur} kicker={l.kicker} titulo={l.title} ui={l.ui} giro={l.turn} />;
     case "slam":
       return <Slam t={rel} dur={dur} texto={l.text} />;
+    case "logo":
+      return <Logo t={rel} dur={dur} src={l.src} texto={l.text} bg={l.bg} y={l.y} size={l.size} />;
     case "chrome":
       return <Cromo t={rel} dur={dur} texto={l.text} y={l.y} size={l.size} />;
     case "clips":
       return <Tarjetas t={rel} abs={t} to={l.to} items={l.items} y={l.y} dim={l.dim} />;
     case "headline": {
       // durante un fogonazo de acento el rótulo se oculta (no se lee naranja sobre naranja)
-      const enSlam = spec.layers.some((s) => s.type === "slam" && t >= s.from && t <= s.to);
+      const enSlam = spec.layers.some((s) => (s.type === "slam" || (s.type === "logo" && s.bg !== false)) && t >= s.from && t <= s.to);
       return enSlam ? null : <Titular t={rel} lineas={l.lines} y={l.y} />;
     }
     default:
@@ -126,7 +128,7 @@ export const Reel: React.FC = () => {
       ))}
 
       {/* durante un fogonazo, la palabra gigante hace de subtítulo */}
-      {!spec.layers.some((s) => s.type === "slam" && t >= s.from && t <= s.to) && <Subtitulos enHoja={empuja} />}
+      {!spec.layers.some((s) => (s.type === "slam" || (s.type === "logo" && s.bg !== false)) && t >= s.from && t <= s.to) && <Subtitulos enHoja={empuja} />}
       {spec.cine && <Cine t={t} />}
       <Musica />
       <Efectos />

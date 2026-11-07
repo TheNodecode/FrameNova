@@ -139,25 +139,33 @@ export const Subtitulos: React.FC<{ enHoja?: number }> = ({ enHoja = 0 }) => {
     const filasL: typeof l.palabras[] = [];
     let f: typeof l.palabras = [];
     l.palabras.forEach((p) => {
-      if (f.length && [...f, p].map((x) => x.texto).join(" ").length > 20) {
+      if (f.length && [...f, p].map((x) => x.texto).join(" ").length > 18) {
         filasL.push(f);
         f = [];
       }
       f.push(p);
     });
     filasL.push(f);
+    // la línea entera entra de golpe (layout estable y centrado); las palabras aún no dichas van tenues y la que suena
+    // se enciende en oro y crece un poco
+    const lin = spring({ frame: Math.round((t - (l.t0 - 0.08)) * F), fps: F, config: { damping: 14, stiffness: 220, mass: 0.6 } });
     return (
-      <div style={{ position: "absolute", left: 60, right: 60, top: y, transform: `translateY(-50%) translateY(${-sale * 12}px)`, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, opacity: 1 - sale, pointerEvents: "none" }}>
+      <div style={{ position: "absolute", left: 50, right: 50, top: y, transform: `translateY(-50%) translateY(${(1 - lin) * 26 - sale * 12}px) scale(${0.92 + 0.08 * Math.min(1, lin)})`, display: "flex", flexDirection: "column", alignItems: "center", gap: 2, opacity: Math.min(1, lin * 1.4) * (1 - sale), filter: `blur(${Math.max(0, 1 - lin) * 8}px)`, pointerEvents: "none" }}>
         {filasL.map((fila, r) => (
-          <div key={r} style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: 16, whiteSpace: "nowrap" }}>
+          <div key={r} style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: 18, whiteSpace: "nowrap" }}>
             {fila.map((p, k) => {
-              if (t < p.t0 - 0.06) {
-                return null;
-              }
-              const e = spring({ frame: Math.round((t - (p.t0 - 0.06)) * F), fps: F, config: { damping: 16, stiffness: 200, mass: 0.6 } });
-              const ent = Math.min(1, e);
+              const dicha = t >= p.t0 - 0.04;
+              const ahora = dicha && t < p.t1 + 0.05;
+              const e = dicha ? spring({ frame: Math.round((t - (p.t0 - 0.04)) * F), fps: F, config: { damping: 12, stiffness: 260, mass: 0.5 } }) : 0;
               const clave = p.enfasis;
-              const comun: React.CSSProperties = { display: "inline-block", opacity: ent, filter: `blur(${(1 - ent) * 9}px)`, transform: `translateY(${(1 - e) * 18}px)` };
+              const comun: React.CSSProperties = { display: "inline-block", opacity: dicha ? 1 : 0.38, transform: `scale(${ahora ? 1 + 0.08 * Math.min(1, e) : 1}) translateY(${dicha ? (1 - Math.min(1, e)) * 8 : 0}px)` };
+              if (!clave && ahora) {
+                return (
+                  <span key={k} style={{ ...comun, fontFamily: theme.fontBody, fontWeight: 800, fontSize: base, lineHeight: 1.05, letterSpacing: "-0.02em", color: theme.accent2, textShadow: `0 0 24px ${alfa(theme.accent, 0.65)}, 0 4px 14px rgba(0,0,0,0.75)` }}>
+                    {p.texto.replace(/[.,;:]$/, "")}
+                  </span>
+                );
+              }
               return clave ? (
                 <span
                   key={k}
@@ -172,13 +180,13 @@ export const Subtitulos: React.FC<{ enHoja?: number }> = ({ enHoja = 0 }) => {
                     WebkitBackgroundClip: "text",
                     backgroundClip: "text",
                     color: "transparent",
-                    filter: `blur(${(1 - ent) * 9}px) drop-shadow(0 0 18px ${alfa(theme.accent, 0.55)}) drop-shadow(0 4px 10px rgba(0,0,0,0.7))`,
+                    filter: `drop-shadow(0 0 18px ${alfa(theme.accent, dicha ? 0.7 : 0.2)}) drop-shadow(0 4px 10px rgba(0,0,0,0.7))`,
                   }}
                 >
                   {p.texto.replace(/[.,;:]$/, "")}
                 </span>
               ) : (
-                <span key={k} style={{ ...comun, fontFamily: theme.fontBody, fontWeight: 700, fontSize: base, lineHeight: 1.05, letterSpacing: "-0.02em", color: "#FFFFFF", textShadow: "0 2px 0 rgba(0,0,0,0.35), 0 0 22px rgba(0,0,0,0.6), 0 10px 28px rgba(0,0,0,0.55)" }}>
+                <span key={k} style={{ ...comun, fontFamily: theme.fontBody, fontWeight: 800, fontSize: base, lineHeight: 1.05, letterSpacing: "-0.02em", color: "#FFFFFF", textShadow: "0 2px 0 rgba(0,0,0,0.45), 0 0 22px rgba(0,0,0,0.65), 0 10px 28px rgba(0,0,0,0.6)" }}>
                   {p.texto.replace(/[.,;:]$/, "")}
                 </span>
               );

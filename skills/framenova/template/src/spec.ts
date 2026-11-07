@@ -21,7 +21,8 @@ export type Layer =
   | { type: "slam"; from: number; to: number; text: string }
   | { type: "chrome"; from: number; to: number; text: string; y?: number; size?: number }
   | { type: "headline"; from: number; to: number; lines: string[]; y?: number }
-  | { type: "clips"; from: number; to: number; items: ItemTarjeta[]; y?: number; dim?: number };
+  | { type: "clips"; from: number; to: number; items: ItemTarjeta[]; y?: number; dim?: number }
+  | { type: "logo"; from: number; to: number; src: string; text?: string; bg?: boolean; y?: number; size?: number };
 
 import type { ItemTarjeta, UiMonitor } from "./kit/Pantalla";
 
