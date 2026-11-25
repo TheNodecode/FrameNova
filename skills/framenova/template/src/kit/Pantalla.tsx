@@ -431,6 +431,44 @@ export const Logo: React.FC<{ t: number; dur: number; src: string; texto?: strin
 };
 
 /**
+ * TEXTO EN LA ESCENA (spec: {type:"escena", from, to, text, y?, size?}). Como los títulos de un tráiler: una palabra grande en serif
+ * que vive DENTRO de la escena. Va DETRÁS de la persona (necesita `matte` en esa ventana) y se asoma por encima de la cabeza.
+ * Entra desenfocada y con el tracking abierto, se asienta con una deriva lenta y se desvanece. `y` = centro vertical (px).
+ */
+export const Escena: React.FC<{ t: number; dur: number; texto: string; y?: number; size?: number }> = ({ t, dur, texto, y = 210, size }) => {
+  const entra = prog(t, 0, 0.9);
+  const sale = prog(t, dur - 0.7, dur);
+  const ancho = spec.format.width;
+  const tam = size ?? Math.min(250, (ancho * 0.8) / (Math.max(1, texto.length) * 0.62));
+  return (
+    <AbsoluteFill style={{ pointerEvents: "none" }}>
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: y,
+          textAlign: "center",
+          transform: `translateY(-50%) translateX(${(t / dur - 0.5) * 36}px) scale(${1.05 - 0.05 * entra + 0.03 * (t / dur)})`,
+          opacity: Math.min(1, entra * 1.3) * (1 - sale),
+          filter: `blur(${(1 - entra) * 14}px)`,
+          fontFamily: theme.fontSerif,
+          fontSize: tam,
+          lineHeight: 1,
+          letterSpacing: `${0.02 + (1 - entra) * 0.14}em`,
+          textTransform: "uppercase",
+          whiteSpace: "nowrap",
+          color: "#F7F1E4",
+          textShadow: `0 0 40px ${alfa(theme.accent2, 0.45)}, 0 10px 40px rgba(0,0,0,0.55)`,
+        }}
+      >
+        {texto}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+/**
  * TERCIO / TÍTULO DE CAPÍTULO (spec: {type:"tercio", from, to, kicker?, title, sub?, size?: "l"|"m"|"s", x?, y?}).
  * Bloque alineado a la izquierda (arriba por defecto, para no chocar con los subtítulos de abajo ni con la cara):
  * filete de oro que crece, kicker en mayúsculas con tracking, título grande y subtítulo. Entra con desenfoque y sale suave.

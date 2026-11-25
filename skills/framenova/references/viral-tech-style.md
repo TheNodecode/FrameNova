@@ -59,3 +59,10 @@ No se controla desde fuera (la API externa es de Studio). `scripts/davinci-expor
 - Clips de otros creadores: muy cortos, como cita/comentario; mejor mencionarlos o pedir permiso.
 - Trabajos para clientes: confirma que el cliente acepta que se usen como portafolio.
 - Música: crédito obligatorio en CC BY.
+
+## Vlog largo horizontal para YouTube (aprendido en el vlog "Creando mi startup")
+- **Natural, no show:** subtítulos pequeños (`style:"lux"`, size 44 a 1080p) y GRANDES (`subtitles.big` = tramos, `bigSize` 60) solo en ~5 frases clave. Sin carteles de capítulo ni "hola, soy…" ni "gracias por ver": al usuario le sonaron falsos.
+- **Texto en la escena (estilo tráiler):** capa `escena` = palabra grande en serif DETRÁS de la persona, asomando sobre la cabeza. Solo 1–3 en todo el vídeo y solo en planos donde la cabeza queda baja. Necesita recorte: `scripts/matte-windows.py` (RVM solo en ventanas, a 960×540) + `matte.ranges` en el spec con ventanas EXACTAS a los PNG generados (si el rango es más ancho, el render falla con 404).
+- **Paneles 3D `monitor` con `ui.tipo:"flujo"`** explican ideas (3 nodos). Centrados en horizontal. 8–11 en 15 min, sin pisar un subtítulo grande.
+- **Render largo:** `look:"none"` (no toca el color ya hecho y evita el filtro SVG), trozos de 3600 fotogramas reanudables (`--frames=a-b`), ~6 fotogramas/s; no borrar `tmp-render` durante el render. Para probar diseño rápido, sustituir `public/video/selects.mp4` por una copia 640×360.
+- **Cortes con música lofi mezclada:** pocos bloques largos, fundido cruzado de 0,17–0,24 s en pausas de voz.

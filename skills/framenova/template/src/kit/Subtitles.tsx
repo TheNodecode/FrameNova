@@ -151,7 +151,7 @@ export const Subtitulos: React.FC<{ enHoja?: number }> = ({ enHoja = 0 }) => {
           const pop = `scale(${0.55 + 0.45 * Math.min(1.12, e)}) translateY(${(1 - Math.min(1, e)) * 22}px)`;
           if (p.enfasis) {
             return (
-              <span key={k} style={{ display: "inline-block", transform: pop, opacity: Math.min(1, e * 2), fontFamily: theme.fontSerif, fontStyle: "italic", fontSize: base * 1.28, lineHeight: 1, backgroundImage: `linear-gradient(180deg, ${theme.accent2} 8%, ${theme.accent} 92%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", filter: `drop-shadow(0 0 22px ${alfa(theme.accent, 0.6)}) drop-shadow(0 5px 10px rgba(0,0,0,0.8))` }}>
+              <span key={k} style={{ display: "inline-block", transform: pop, opacity: Math.min(1, e * 2), fontFamily: theme.fontSerif, fontStyle: "italic", fontSize: base * 1.12, lineHeight: 1, backgroundImage: `linear-gradient(180deg, ${theme.accent2} 8%, ${theme.accent} 92%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", filter: `drop-shadow(0 0 22px ${alfa(theme.accent, 0.6)}) drop-shadow(0 5px 10px rgba(0,0,0,0.8))` }}>
                 {txt}
               </span>
             );

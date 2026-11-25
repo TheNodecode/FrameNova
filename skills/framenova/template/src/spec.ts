@@ -22,6 +22,7 @@ export type Layer =
   | { type: "chrome"; from: number; to: number; text: string; y?: number; size?: number }
   | { type: "headline"; from: number; to: number; lines: string[]; y?: number }
   | { type: "clips"; from: number; to: number; items: ItemTarjeta[]; y?: number; dim?: number }
+  | { type: "escena"; from: number; to: number; text: string; y?: number; size?: number }
   | { type: "tercio"; from: number; to: number; kicker?: string; title: string; sub?: string; size?: "xl" | "l" | "m" | "s"; x?: number; y?: number }
   | { type: "logo"; from: number; to: number; src: string; text?: string; bg?: boolean; y?: number; size?: number };
 
@@ -44,7 +45,8 @@ export type Spec = {
   format: { width: number; height: number; fps: number };
   durationSec: number;
   video?: { src: string; segments?: [number, number][]; muted?: boolean; zoom?: number };
-  matte?: { dir: string; max: number } | null;
+  /** `ranges`: ventanas (s) con recorte disponible; fuera de ellas no se pinta (ahorra render y no exige PNG de todos los fotogramas). */
+  matte?: { dir: string; max: number; ranges?: [number, number][] } | null;
   look?: Look | "grade";
   /** Conversión LOG→Rec.709 generada por scripts/make-lut.py --grade (curvas por canal + saturación). */
   grade?: { r: number[]; g: number[]; b: number[]; sat: number };
@@ -72,7 +74,7 @@ export type Spec = {
   /** encuadre por plano: zoom fijo desde `at` (1 = plano general, 1.12 = primer plano) */
   framing?: { at: number; zoom: number }[];
   /** acabado de cine: viñeta, grano, bandas que abren y cierran */
-  cine?: { grain?: number; vignette?: number; bars?: number; openSec?: number; closeSec?: number; bottomShade?: number };
+  cine?: { grain?: number; vignette?: number; bars?: number; openSec?: number; closeSec?: number; bottomShade?: number; fadeIn?: number };
   music?: { src: string; startAt?: number; gain: number; duck?: number; fadeIn?: number; fadeOut?: number; dropAt?: number | null };
   sfx: { f: string; t: number; v: number }[];
   sfxGain?: number;

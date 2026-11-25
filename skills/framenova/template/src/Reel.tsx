@@ -6,7 +6,7 @@ import { CardBoard } from "./kit/Cards";
 import { Cierre } from "./kit/Closing";
 import { Burst, Chip, GiantWord, Hook, StatLayer } from "./kit/Fx";
 import { Cutout, filtroVideo, LookDefs, SourceVideo } from "./kit/Media";
-import { Cromo, Logo, Monitor, Slam, Tarjetas, Tercio, Titular } from "./kit/Pantalla";
+import { Cromo, Escena, Logo, Monitor, Slam, Tarjetas, Tercio, Titular } from "./kit/Pantalla";
 import { ParcheLimpieza } from "./kit/Parche";
 import { progresoHoja, SheetView } from "./kit/Sheet";
 import { Subtitulos } from "./kit/Subtitles";
@@ -50,6 +50,8 @@ const CapaPantalla: React.FC<{ l: Layer }> = ({ l }) => {
       return <Monitor t={rel} dur={dur} kicker={l.kicker} titulo={l.title} ui={l.ui} giro={l.turn} />;
     case "slam":
       return <Slam t={rel} dur={dur} texto={l.text} />;
+    case "escena":
+      return <Escena t={rel} dur={dur} texto={l.text} y={l.y} size={l.size} />;
     case "tercio":
       return <Tercio t={rel} dur={dur} kicker={l.kicker} title={l.title} sub={l.sub} size={l.size} x={l.x} y={l.y} />;
     case "logo":
@@ -115,7 +117,7 @@ export const Reel: React.FC = () => {
         <Capa key={i} l={l} />
       ))}
 
-      {spec.matte && spec.video && (
+      {spec.matte && spec.video && (spec.matte.ranges ?? [[0, 1e9]]).some(([a, b]) => t >= a && t <= b) && (
         <AbsoluteFill style={mov}>
           <Cutout />
         </AbsoluteFill>

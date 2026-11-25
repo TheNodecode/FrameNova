@@ -15,7 +15,7 @@ export const Cine: React.FC<{ t: number }> = ({ t }) => {
   const abre = 1 - prog(t, 0, c.openSec ?? 0.7);
   const cierra = prog(t, D - (c.closeSec ?? 1.1), D - 0.25);
   const alto = barras * Math.max(abre, cierra);
-  const negro = prog(t, D - 0.3, D - 0.02);
+  const negro = Math.max(prog(t, D - 0.3, D - 0.02), c.fadeIn ? 1 - prog(t, 0, c.fadeIn) : 0);
   const semilla = Math.floor(t * 24);
   const dx = Math.floor(random(`gx${semilla}`) * 200);
   const dy = Math.floor(random(`gy${semilla}`) * 200);
