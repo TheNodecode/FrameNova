@@ -9,7 +9,7 @@ import brand from "../brand.json";
  */
 export type Look = "natural" | "clean" | "cine" | "moody" | "punch" | "pro";
 export type FondoTipo = "studio" | "aurora" | "grid" | "mesh";
-export type EstiloSub = "pill" | "karaoke" | "impact" | "minimal" | "lux";
+export type EstiloSub = "pill" | "karaoke" | "impact" | "minimal" | "lux" | "pop";
 
 export type Tokens = {
   dark: boolean;

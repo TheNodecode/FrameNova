@@ -22,6 +22,7 @@ export const Cine: React.FC<{ t: number }> = ({ t }) => {
   return (
     <AbsoluteFill style={{ pointerEvents: "none" }}>
       <AbsoluteFill style={{ background: `radial-gradient(ellipse 75% 62% at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,${c.vignette ?? 0.35}) 100%)` }} />
+      {c.bottomShade ? <AbsoluteFill style={{ background: `linear-gradient(to top, rgba(0,0,0,${c.bottomShade}) 0%, rgba(0,0,0,0) 30%)` }} /> : null}
       {(c.grain ?? 0.06) > 0 && (
         <AbsoluteFill style={{ opacity: c.grain ?? 0.06, mixBlendMode: "overlay" }}>
           <svg width="100%" height="100%">

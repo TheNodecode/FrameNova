@@ -87,7 +87,9 @@ export const Subtitulos: React.FC<{ enHoja?: number }> = ({ enHoja = 0 }) => {
   const l = lineas[i];
   const fin = Math.min(lineas[i + 1] ? lineas[i + 1].t0 - 0.02 : Infinity, l.t1 + 0.35);
   const sale = prog(t, fin - 0.1, fin);
-  const estilo: EstiloSub = spec.subtitles.style ?? theme.subs;
+  // subtítulo normal = discreto y elegante; los momentos importantes (spec.subtitles.big) pasan a "pop" grande
+  const grande = spec.subtitles.big?.some((b) => l.t0 >= b.from && l.t0 < b.to);
+  const estilo: EstiloSub = grande ? "pop" : spec.subtitles.style ?? theme.subs;
   const zona = spec.subtitles.zones?.find((z) => l.t0 >= z.from && l.t0 < z.to);
   const capsula = !!zona?.capsule;
   const y = zona?.y ?? spec.subtitles.y;
@@ -132,6 +134,39 @@ export const Subtitulos: React.FC<{ enHoja?: number }> = ({ enHoja = 0 }) => {
     );
   }
 
+  if (estilo === "pop") {
+    // "pop": palabras que saltan al sonar. Condensada en mayúsculas con contorno negro; la que suena se enciende en oro;
+    // las palabras clave van en serif cursiva con degradado dorado y brillo.
+    const base = spec.subtitles.bigSize ?? 86;
+    const lin = spring({ frame: Math.round((t - (l.t0 - 0.05)) * F), fps: F, config: { damping: 14, stiffness: 260, mass: 0.5 } });
+    return (
+      <div style={{ position: "absolute", left: 40, right: 40, top: y, transform: `translateY(-50%) translateY(${-sale * 10}px)`, display: "flex", justifyContent: "center", alignItems: "baseline", gap: base * 0.24, opacity: 1 - sale, pointerEvents: "none", flexWrap: "nowrap", whiteSpace: "nowrap" }}>
+        {l.palabras.map((p, k) => {
+          if (t < p.t0 - 0.03) {
+            return <span key={k} style={{ display: "inline-block", width: 0, opacity: 0 }} />;
+          }
+          const ahora = t < p.t1 + 0.05;
+          const e = spring({ frame: Math.round((t - (p.t0 - 0.03)) * F), fps: F, config: { damping: 10, stiffness: 320, mass: 0.45 } });
+          const txt = p.texto.replace(/[.,;:¿?¡!]+$/, "").replace(/^[¿¡]+/, "");
+          const pop = `scale(${0.55 + 0.45 * Math.min(1.12, e)}) translateY(${(1 - Math.min(1, e)) * 22}px)`;
+          if (p.enfasis) {
+            return (
+              <span key={k} style={{ display: "inline-block", transform: pop, opacity: Math.min(1, e * 2), fontFamily: theme.fontSerif, fontStyle: "italic", fontSize: base * 1.28, lineHeight: 1, backgroundImage: `linear-gradient(180deg, ${theme.accent2} 8%, ${theme.accent} 92%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", filter: `drop-shadow(0 0 22px ${alfa(theme.accent, 0.6)}) drop-shadow(0 5px 10px rgba(0,0,0,0.8))` }}>
+                {txt}
+              </span>
+            );
+          }
+          return (
+            <span key={k} style={{ display: "inline-block", transform: pop + (ahora ? " scale(1.06)" : ""), opacity: Math.min(1, e * 2), fontFamily: theme.fontDisplay, fontVariationSettings: "'wdth' 75, 'opsz' 96", fontWeight: 800, textTransform: "uppercase", fontSize: base, lineHeight: 1, letterSpacing: "0.01em", color: ahora ? theme.accent2 : "#FFFFFF", WebkitTextStroke: `${Math.round(base * 0.11)}px #0A0A0A`, paintOrder: "stroke fill", textShadow: `0 6px 0 rgba(0,0,0,0.35), 0 10px 30px rgba(0,0,0,0.6)${ahora ? `, 0 0 28px ${alfa(theme.accent, 0.55)}` : ""}` }}>
+              {txt}
+            </span>
+          );
+        })}
+        <span style={{ display: "none" }}>{lin}</span>
+      </div>
+    );
+  }
+
   if (estilo === "lux") {
     // "lux": frase en Inter Tight (sin mayúsculas forzadas) + palabra clave en serif cursiva con degradado del acento.
     // Cada palabra aparece cuando suena, saliendo de un desenfoque; nada de pastillas.
@@ -139,7 +174,7 @@ export const Subtitulos: React.FC<{ enHoja?: number }> = ({ enHoja = 0 }) => {
     const filasL: typeof l.palabras[] = [];
     let f: typeof l.palabras = [];
     l.palabras.forEach((p) => {
-      if (f.length && [...f, p].map((x) => x.texto).join(" ").length > 18) {
+      if (f.length && [...f, p].map((x) => x.texto).join(" ").length > (spec.subtitles.rowChars ?? 18)) {
         filasL.push(f);
         f = [];
       }

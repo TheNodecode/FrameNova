@@ -1,5 +1,6 @@
 import { AbsoluteFill, Loop, OffthreadVideo, Sequence, staticFile } from "remotion";
 import { fps, lin, prog, resorte } from "../anim";
+import { spec } from "../spec";
 import { alfa, theme } from "../theme";
 
 /**
@@ -92,12 +93,12 @@ export const Monitor: React.FC<{ t: number; dur: number; kicker?: string; titulo
         <div
           style={{
             position: "absolute",
-            left: 70,
-            top: 470,
+            left: (spec.format.width - 940) / 2,
+            top: spec.format.width > 1500 ? (spec.format.height - 760) / 2 + 10 : 470,
             width: 940,
             height: 760,
             borderRadius: 22,
-            transform: `translateY(${(1 - e) * 220}px) translateZ(${-200 * (1 - e) - 120 * sale}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${giro * -1.2}deg)`,
+            transform: `translateY(${(1 - e) * 220}px) translateZ(${-200 * (1 - e) - 120 * sale}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${giro * -1.2}deg) scale(${spec.format.width > 1500 ? 1.14 : 1})`,
             transformStyle: "preserve-3d",
             background: "linear-gradient(170deg, rgba(26,30,40,0.96), rgba(9,11,16,0.97))",
             border: `2px solid ${alfa("#FFFFFF", 0.14)}`,
@@ -249,7 +250,8 @@ export const Slam: React.FC<{ t: number; dur: number; texto: string }> = ({ t, d
   const sale = prog(t, dur - 0.14, dur);
   const x = 140 - 200 * prog(t, 0, dur);
   // el tamaño se adapta al largo de la palabra (condensada ≈ 0,46 em por letra) para que quepa en 1080 px
-  const tam = Math.min(330, 1010 / (Math.max(1, texto.length) * 0.46));
+  const ancho = spec.format.width;
+  const tam = Math.min(ancho > 1500 ? 470 : 330, (ancho * 0.935) / (Math.max(1, texto.length) * 0.46));
   return (
     <AbsoluteFill style={{ background: `linear-gradient(140deg, ${theme.accent2} -30%, ${theme.accent} 45%, ${theme.accent} 100%)`, clipPath: `inset(${(1 - entra) * 50}% 0 ${(1 - entra) * 50}% 0)`, opacity: 1 - sale }}>
       <AbsoluteFill style={{ background: "radial-gradient(70% 50% at 50% 50%, rgba(255,255,255,0.25), transparent 70%)" }} />
@@ -424,6 +426,35 @@ export const Logo: React.FC<{ t: number; dur: number; src: string; texto?: strin
           <div style={{ ...COND, fontSize: 210, lineHeight: 0.85, color: "#FFFFFF", letterSpacing: "0.02em", textTransform: "uppercase", opacity: prog(t, 0.08, 0.3), transform: `translateY(${(1 - prog(t, 0.08, 0.35)) * 40}px)`, textShadow: `0 0 40px ${alfa(theme.accent, 0.5)}` }}>{texto}</div>
         )}
       </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
+/**
+ * TERCIO / TÍTULO DE CAPÍTULO (spec: {type:"tercio", from, to, kicker?, title, sub?, size?: "l"|"m"|"s", x?, y?}).
+ * Bloque alineado a la izquierda (arriba por defecto, para no chocar con los subtítulos de abajo ni con la cara):
+ * filete de oro que crece, kicker en mayúsculas con tracking, título grande y subtítulo. Entra con desenfoque y sale suave.
+ */
+export const Tercio: React.FC<{ t: number; dur: number; kicker?: string; title: string; sub?: string; size?: "xl" | "l" | "m" | "s"; x?: number; y?: number }> = ({ t, dur, kicker, title, sub, size = "m", x = 110, y = 90 }) => {
+  const e = resorte(t, 0.02, 170, 17);
+  const sale = prog(t, dur - 0.4, dur);
+  const barra = prog(t, 0.05, 0.6);
+  const tam = size === "xl" ? 170 : size === "l" ? 84 : size === "m" ? 64 : 44;
+  const kick = size === "s" ? 20 : 24;
+  const dir = (1 - Math.min(1, e)) * -50;
+  return (
+    <AbsoluteFill style={{ pointerEvents: "none", opacity: 1 - sale }}>
+      <div style={{ position: "absolute", left: 0, top: 0, width: 1100, height: 520, background: `radial-gradient(ellipse 70% 70% at ${x / 11}% ${y / 5.2 + 8}%, rgba(8,8,8,0.55), transparent 72%)` }} />
+      <div style={{ position: "absolute", left: x, top: y, transform: `translateX(${dir}px)`, opacity: Math.min(1, e * 1.6), filter: `blur(${(1 - Math.min(1, e)) * 8}px)` }}>
+        <div style={{ width: (size === "s" ? 60 : 110) * barra, height: 4, background: `linear-gradient(90deg, ${theme.accent2}, ${theme.accent})`, marginBottom: size === "s" ? 12 : 18, borderRadius: 2 }} />
+        {kicker && <div style={{ fontFamily: theme.fontBody, fontWeight: 700, fontSize: kick, letterSpacing: "0.28em", color: theme.accent2, textTransform: "uppercase", marginBottom: 10, textShadow: "0 2px 12px rgba(0,0,0,0.7)" }}>{kicker}</div>}
+        {size === "xl" ? (
+          <div style={{ fontFamily: theme.fontSerif, fontStyle: "italic", fontSize: tam, lineHeight: 0.95, backgroundImage: `linear-gradient(180deg, ${theme.accent2} 8%, ${theme.accent} 92%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", filter: `drop-shadow(0 0 26px ${alfa(theme.accent, 0.55)}) drop-shadow(0 6px 12px rgba(0,0,0,0.8))` }}>{title}</div>
+        ) : (
+          <div style={{ fontFamily: theme.fontBody, fontWeight: 800, fontSize: tam, lineHeight: 1.02, letterSpacing: "-0.02em", color: "#FFFFFF", textShadow: "0 3px 0 rgba(0,0,0,0.35), 0 8px 30px rgba(0,0,0,0.65)", textTransform: size === "s" ? "uppercase" : "none", whiteSpace: "pre-line" }}>{title}</div>
+        )}
+        {sub && <div style={{ fontFamily: theme.fontSerif, fontStyle: "italic", fontSize: size === "s" ? 30 : size === "xl" ? 44 : 40, color: size === "xl" ? "#FFFFFF" : theme.accent2, marginTop: 8, textShadow: "0 2px 14px rgba(0,0,0,0.7)" }}>{sub}</div>}
+      </div>
     </AbsoluteFill>
   );
 };

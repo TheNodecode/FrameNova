@@ -22,6 +22,7 @@ export type Layer =
   | { type: "chrome"; from: number; to: number; text: string; y?: number; size?: number }
   | { type: "headline"; from: number; to: number; lines: string[]; y?: number }
   | { type: "clips"; from: number; to: number; items: ItemTarjeta[]; y?: number; dim?: number }
+  | { type: "tercio"; from: number; to: number; kicker?: string; title: string; sub?: string; size?: "xl" | "l" | "m" | "s"; x?: number; y?: number }
   | { type: "logo"; from: number; to: number; src: string; text?: string; bg?: boolean; y?: number; size?: number };
 
 import type { ItemTarjeta, UiMonitor } from "./kit/Pantalla";
@@ -53,6 +54,12 @@ export type Spec = {
     style?: EstiloSub;
     y: number;
     maxChars?: number;
+    /** Caracteres máximos por fila en el estilo lux (18 en vertical; ~34 en horizontal). */
+    rowChars?: number;
+    /** Tramos (s) en que el subtítulo pasa a estilo "pop" grande (frases importantes). */
+    big?: { from: number; to: number }[];
+    /** Tamaño del subtítulo grande. Por defecto 86. */
+    bigSize?: number;
     /** Tamaño de letra de los subtítulos (px a 1080 de ancho). Por defecto 64. */
     size?: number;
     emphasis?: string[];
@@ -65,7 +72,7 @@ export type Spec = {
   /** encuadre por plano: zoom fijo desde `at` (1 = plano general, 1.12 = primer plano) */
   framing?: { at: number; zoom: number }[];
   /** acabado de cine: viñeta, grano, bandas que abren y cierran */
-  cine?: { grain?: number; vignette?: number; bars?: number; openSec?: number; closeSec?: number };
+  cine?: { grain?: number; vignette?: number; bars?: number; openSec?: number; closeSec?: number; bottomShade?: number };
   music?: { src: string; startAt?: number; gain: number; duck?: number; fadeIn?: number; fadeOut?: number; dropAt?: number | null };
   sfx: { f: string; t: number; v: number }[];
   sfxGain?: number;

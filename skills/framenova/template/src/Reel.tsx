@@ -6,7 +6,7 @@ import { CardBoard } from "./kit/Cards";
 import { Cierre } from "./kit/Closing";
 import { Burst, Chip, GiantWord, Hook, StatLayer } from "./kit/Fx";
 import { Cutout, filtroVideo, LookDefs, SourceVideo } from "./kit/Media";
-import { Cromo, Logo, Monitor, Slam, Tarjetas, Titular } from "./kit/Pantalla";
+import { Cromo, Logo, Monitor, Slam, Tarjetas, Tercio, Titular } from "./kit/Pantalla";
 import { ParcheLimpieza } from "./kit/Parche";
 import { progresoHoja, SheetView } from "./kit/Sheet";
 import { Subtitulos } from "./kit/Subtitles";
@@ -35,7 +35,7 @@ const Capa: React.FC<{ l: Layer }> = ({ l }) => {
   }
 };
 
-const ENCIMA = new Set(["monitor", "slam", "headline", "clips", "logo"]);
+const ENCIMA = new Set(["monitor", "slam", "headline", "clips", "logo", "tercio"]);
 
 /** Capas del estilo "pantalla tech": visibles solo entre `from` y `to`. */
 const CapaPantalla: React.FC<{ l: Layer }> = ({ l }) => {
@@ -50,6 +50,8 @@ const CapaPantalla: React.FC<{ l: Layer }> = ({ l }) => {
       return <Monitor t={rel} dur={dur} kicker={l.kicker} titulo={l.title} ui={l.ui} giro={l.turn} />;
     case "slam":
       return <Slam t={rel} dur={dur} texto={l.text} />;
+    case "tercio":
+      return <Tercio t={rel} dur={dur} kicker={l.kicker} title={l.title} sub={l.sub} size={l.size} x={l.x} y={l.y} />;
     case "logo":
       return <Logo t={rel} dur={dur} src={l.src} texto={l.text} bg={l.bg} y={l.y} size={l.size} />;
     case "chrome":
@@ -91,7 +93,7 @@ export const Reel: React.FC = () => {
     rotate: `${z > 0 ? Math.sin(t * 0.55) * 0.22 : 0}deg`,
     translate: `${manoX}px ${-30 * empuja + manoY}px`,
     transformOrigin: "50% 40%",
-    filter: `${filtroVideo(spec.look ?? theme.look)} brightness(${1 - 0.3 * empuja})`,
+    filter: (spec.look as string) === "none" ? undefined : `${filtroVideo(spec.look ?? theme.look)} brightness(${1 - 0.3 * empuja})`,
   };
   const detras = spec.layers.filter((l) => !ENCIMA.has(l.type));
   // el rótulo fijo va SIEMPRE por encima del resto (si no, el desenfoque de las tarjetas lo emborrona)
